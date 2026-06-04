@@ -13,6 +13,8 @@ yalc.lock
 dist
 /storybook-static
 !packages/core/dist
+# release/manabie-v6 hoists @dnd-kit/core to repo root for yarn 1 git+https install
+!/dist
 
 # testing
 coverage
