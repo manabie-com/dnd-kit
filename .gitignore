@@ -12,6 +12,7 @@ yalc.lock
 /build
 dist
 /storybook-static
+!packages/core/dist
 
 # testing
 coverage

@@ -67,7 +67,14 @@ export function useRect(
 
     if (element) {
       resizeObserver?.observe(element);
-      mutationObserver?.observe(document.body, {
+      // Salesforce LWS blocks observing shared elements such as <body>. Watch the element's
+      // parent subtree instead, and if the parent IS body (or missing), fall back to the
+      // element itself. Functional impact is negligible for typical drag-drop UIs.
+      const mutationTarget =
+        element.parentElement && element.parentElement !== document.body
+          ? element.parentElement
+          : element;
+      mutationObserver?.observe(mutationTarget, {
         childList: true,
         subtree: true,
       });
