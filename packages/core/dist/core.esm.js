@@ -2207,12 +2207,11 @@ function useRect(element, measure, fallbackRect) {
     measureRect();
 
     if (element) {
-      resizeObserver == null ? void 0 : resizeObserver.observe(element);
-      // Salesforce LWS blocks observing document.body. Watch the element's parent subtree
-      // instead, and if the parent IS body, fall back to the element itself.
-      const mutationTarget = element.parentElement && element.parentElement !== document.body
-        ? element.parentElement
-        : element;
+      resizeObserver == null ? void 0 : resizeObserver.observe(element); // Salesforce LWS blocks observing shared elements such as <body>. Watch the element's
+      // parent subtree instead, and if the parent IS body (or missing), fall back to the
+      // element itself. Functional impact is negligible for typical drag-drop UIs.
+
+      const mutationTarget = element.parentElement && element.parentElement !== document.body ? element.parentElement : element;
       mutationObserver == null ? void 0 : mutationObserver.observe(mutationTarget, {
         childList: true,
         subtree: true
