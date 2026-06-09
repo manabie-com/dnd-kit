@@ -13,7 +13,7 @@ permissions:
 jobs:
   requirements:
     if: ${{ contains(github.event.label.name, 'Ok to test') }}
-    runs-on: ['100m-400mi']
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - name: Remove label
@@ -31,7 +31,7 @@ jobs:
   test:
     needs: requirements
     if: ${{ contains(github.event.label.name, 'Ok to test') }}
-    runs-on: ['100m-400mi']
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Checkout
