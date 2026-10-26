@@ -1,5 +1,5 @@
 import {readFileSync} from 'fs';
-import {join} from 'path';
+import {dirname, join} from 'path';
 
 const sharedPreviewHead = readFileSync(
   join(__dirname, '..', '..', 'stories-shared', 'preview-head.html'),
@@ -16,7 +16,7 @@ export default {
     '@dnd-kit/storybook-addon-codesandbox',
   ],
 
-  framework: '@storybook/svelte-vite',
+  framework: getAbsolutePath('@storybook/svelte-vite'),
 
   async viteFinal(config: any) {
     config.define = {
@@ -30,3 +30,7 @@ export default {
     return config;
   },
 };
+
+function getAbsolutePath(value) {
+  return dirname(require.resolve(join(value, 'package.json')));
+}
